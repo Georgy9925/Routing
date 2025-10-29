@@ -1,0 +1,446 @@
+.app {
+	min-height: 100vh;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	padding: 20px;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.header {
+	text-align: center;
+	color: white;
+	margin-bottom: 30px;
+}
+
+.header h1 {
+	margin: 0 0 10px 0;
+	font-size: 2.5em;
+	font-weight: 700;
+}
+
+.header p {
+	margin: 0;
+	opacity: 0.9;
+	font-size: 1.1em;
+}
+
+/* Стили для элементов управления */
+.controls {
+	display: flex;
+	gap: 15px;
+	justify-content: center;
+	margin-bottom: 25px;
+	flex-wrap: wrap;
+}
+
+.input {
+	padding: 15px;
+	border: none;
+	border-radius: 25px;
+	font-size: 1em;
+	background: rgba(255, 255, 255, 0.9);
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	min-width: 250px;
+}
+
+.input:focus {
+	outline: none;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.addButton {
+	padding: 15px 25px;
+	background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+	color: white;
+	border: none;
+	border-radius: 25px;
+	font-size: 1em;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.addButton:hover:not(:disabled) {
+	transform: translateY(-2px);
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.addButton:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	transform: none;
+	box-shadow: none;
+}
+
+.sortButton {
+	padding: 15px 25px;
+	background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+	color: white;
+	border: none;
+	border-radius: 25px;
+	font-size: 1em;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.sortButton:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.sortButton.active {
+	background: linear-gradient(135deg, #00b894 0%, #00a382 100%);
+}
+
+.deleteButton {
+	padding: 10px 20px;
+	background: linear-gradient(135deg, #ff6b6b 0%, #c23616 100%);
+	color: white;
+	border: none;
+	border-radius: 20px;
+	font-size: 0.9em;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.deleteButton:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.loader {
+	text-align: center;
+	padding: 60px 20px;
+	font-size: 1.2em;
+	color: white;
+}
+
+.todoList {
+	max-width: 800px;
+	margin: 0 auto;
+	background: white;
+	border-radius: 15px;
+	padding: 20px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.todoItem {
+	display: flex;
+	align-items: center;
+	padding: 15px;
+	margin-bottom: 10px;
+	background: #f8f9fa;
+	border-radius: 10px;
+	border-left: 4px solid #4facfe;
+	transition: all 0.3s ease;
+	gap: 15px;
+}
+
+.todoItem:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox {
+	width: 20px;
+	height: 20px;
+	accent-color: #28a745;
+	cursor: pointer;
+}
+
+.todoContent {
+	flex: 1;
+}
+
+.todoContent h3 {
+	margin: 0 0 5px 0;
+	font-size: 1.1em;
+	color: #333;
+	font-weight: 500;
+}
+
+.todoContent h3.completed {
+	text-decoration: line-through;
+	color: #888;
+}
+
+.todoId {
+	margin: 0;
+	font-size: 0.8em;
+	color: #999;
+}
+
+.statusCompleted,
+.statusPending {
+	padding: 6px 12px;
+	border-radius: 20px;
+	font-size: 0.8em;
+	font-weight: 600;
+}
+
+.statusCompleted {
+	background: #d4edda;
+	color: #155724;
+}
+
+.statusPending {
+	background: #fff3cd;
+	color: #856404;
+}
+
+/* Стили для ссылок задач */
+.todoLink {
+	text-decoration: none;
+	color: inherit;
+	flex: 1;
+}
+
+.todoLink:hover h3 {
+	color: #4facfe;
+}
+
+/* Стили для страницы задачи */
+.todoPage {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.todoPageHeader {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	margin-bottom: 30px;
+	color: white;
+}
+
+.backButton {
+	padding: 10px 20px;
+	background: rgba(255, 255, 255, 0.2);
+	color: white;
+	border: none;
+	border-radius: 20px;
+	font-size: 1em;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.backButton:hover {
+	background: rgba(255, 255, 255, 0.3);
+	transform: translateY(-2px);
+}
+
+.todoPageContent {
+	background: white;
+	border-radius: 15px;
+	padding: 30px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.todoPageItem {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.todoPageCheckbox {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-weight: 600;
+	color: #333;
+}
+
+.todoPageContent h2 {
+	margin: 0;
+	font-size: 1.4em;
+	line-height: 1.5;
+	color: #333;
+	word-wrap: break-word;
+}
+
+.editForm {
+	width: 100%;
+}
+
+.editTextarea {
+	width: 100%;
+	padding: 15px;
+	border: 2px solid #e9ecef;
+	border-radius: 10px;
+	font-size: 1em;
+	font-family: inherit;
+	resize: vertical;
+	min-height: 120px;
+}
+
+.editTextarea:focus {
+	outline: none;
+	border-color: #4facfe;
+}
+
+.editButtons {
+	display: flex;
+	gap: 10px;
+	margin-top: 15px;
+}
+
+.saveButton {
+	padding: 10px 20px;
+	background: #28a745;
+	color: white;
+	border: none;
+	border-radius: 20px;
+	font-size: 0.9em;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.saveButton:hover:not(:disabled) {
+	background: #218838;
+	transform: translateY(-1px);
+}
+
+.saveButton:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.cancelButton {
+	padding: 10px 20px;
+	background: #6c757d;
+	color: white;
+	border: none;
+	border-radius: 20px;
+	font-size: 0.9em;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.cancelButton:hover {
+	background: #5a6268;
+	transform: translateY(-1px);
+}
+
+.editButton {
+	padding: 10px 20px;
+	background: #ffc107;
+	color: #212529;
+	border: none;
+	border-radius: 20px;
+	font-size: 0.9em;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	margin-top: 15px;
+}
+
+.editButton:hover {
+	background: #e0a800;
+	transform: translateY(-1px);
+}
+
+.todoPageMeta {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 20px;
+	border-top: 1px solid #e9ecef;
+}
+
+.todoPageActions {
+	display: flex;
+	justify-content: flex-end;
+}
+
+/* Стили для страницы 404 */
+.notFoundPage {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 60vh;
+	text-align: center;
+	color: white;
+}
+
+.notFoundContent h1 {
+	font-size: 6em;
+	margin: 0;
+	font-weight: 700;
+}
+
+.notFoundContent h2 {
+	font-size: 2em;
+	margin: 0 0 20px 0;
+}
+
+.notFoundContent p {
+	font-size: 1.2em;
+	margin-bottom: 30px;
+	opacity: 0.9;
+}
+
+.homeButton {
+	padding: 15px 30px;
+	background: rgba(255, 255, 255, 0.2);
+	color: white;
+	text-decoration: none;
+	border-radius: 25px;
+	font-weight: 600;
+	transition: all 0.3s ease;
+}
+
+.homeButton:hover {
+	background: rgba(255, 255, 255, 0.3);
+	transform: translateY(-2px);
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+	.app {
+		padding: 10px;
+	}
+
+	.todoItem {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 12px;
+	}
+
+	.header h1 {
+		font-size: 2em;
+	}
+
+	.controls {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.todoPageHeader {
+		flex-direction: column;
+		text-align: center;
+		gap: 15px;
+	}
+
+	.todoPageMeta {
+		flex-direction: column;
+		gap: 15px;
+		align-items: flex-start;
+	}
+
+	.notFoundContent h1 {
+		font-size: 4em;
+	}
+
+	.notFoundContent h2 {
+		font-size: 1.5em;
+	}
+}
+
+.emptyState {
+	text-align: center;
+	padding: 40px 20px;
+	color: #666;
+	font-size: 1.1em;
+}

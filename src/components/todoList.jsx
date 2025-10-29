@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import styles from './app.module.css';
+import { Link } from 'react-router-dom';
+import styles from './App.module.css';
 
 const API_URL = 'http://localhost:3001/todos';
 
-export const App = () => {
+export const TodoList = () => {
 	const [todos, setTodos] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [newTodoTitle, setNewTodoTitle] = useState('');
@@ -16,7 +17,7 @@ export const App = () => {
 
 	const fetchTodos = () => {
 		setIsLoading(true);
-		fetch('http://localhost:3001/todos')
+		fetch(API_URL)
 			.then((response) => response.json())
 			.then((loadedTodos) => {
 				setTodos(loadedTodos);
@@ -37,7 +38,7 @@ export const App = () => {
 			completed: false
 		};
 
-		fetch('http://localhost:3001/todos', {
+		fetch(API_URL, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -54,35 +55,9 @@ export const App = () => {
 			});
 	};
 
-	const handleToggleComplete = (id, completed) => {
-		fetch(`http://localhost:3001/todos/${id}`, {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ completed: !completed }),
-		})
-			.then((response) => response.json())
-			.then((updatedTodo) => {
-				setTodos(todos.map(todo =>
-					todo.id === id ? updatedTodo : todo
-				));
-			})
-			.catch((error) => {
-				console.error('Ошибка при обновлении:', error);
-			});
-	};
-
-	const handleDeleteTodo = (id) => {
-		fetch(`http://localhost:3001/todos/${id}`, {
-			method: 'DELETE',
-		})
-			.then(() => {
-				setTodos(todos.filter(todo => todo.id !== id));
-			})
-			.catch((error) => {
-				console.error('Ошибка при удалении:', error);
-			});
+	const truncateText = (text, maxLength = 50) => {
+		if (text.length <= maxLength) return text;
+		return text.substring(0, maxLength) + '...';
 	};
 
 	const filteredTodos = todos.filter(todo =>
@@ -94,13 +69,12 @@ export const App = () => {
 		: filteredTodos;
 
 	return (
-		<div className={styles.app}>
+		<>
 			<div className={styles.header}>
 				<h1>Todo List</h1>
 				<p>Список дел с JSON Server</p>
 			</div>
 
-			{ }
 			<div className={styles.controls}>
 				<input
 					type="text"
@@ -119,6 +93,7 @@ export const App = () => {
 				</button>
 			</div>
 
+			{/* Поиск и сортировка */}
 			<div className={styles.controls}>
 				<input
 					type="text"
@@ -129,7 +104,7 @@ export const App = () => {
 				/>
 				<button
 					onClick={() => setSortAlphabetically(!sortAlphabetically)}
-					className={styles.sortButton}
+					className={`${styles.sortButton} ${sortAlphabetically ? styles.active : ''}`}
 				>
 					{sortAlphabetically ? 'Сбросить сортировку' : 'Сортировать по А-Я'}
 				</button>
@@ -139,33 +114,36 @@ export const App = () => {
 				<div className={styles.loader}>Загрузка...</div>
 			) : (
 				<div className={styles.todoList}>
-					{sortedTodos.map(({ id, title, completed }) => (
-						<div key={id} className={styles.todoItem}>
-							<input
-								type="checkbox"
-								checked={completed}
-								onChange={() => handleToggleComplete(id, completed)}
-								className={styles.checkbox}
-							/>
-							<div className={styles.todoContent}>
-								<h3 className={completed ? styles.completed : ''}>
-									{title}
-								</h3>
-								<p className={styles.todoId}>ID: {id}</p>
-							</div>
-							<div className={completed ? styles.statusCompleted : styles.statusPending}>
-								{completed ? 'Выполнено' : 'В процессе'}
-							</div>
-							<button
-								onClick={() => handleDeleteTodo(id)}
-								className={styles.deleteButton}
-							>
-								Удалить
-							</button>
+					{sortedTodos.length === 0 ? (
+						<div className={styles.emptyState}>
+							{searchQuery ? 'Задачи по вашему запросу не найдены' : 'Список дел пуст'}
 						</div>
-					))}
+					) : (
+						sortedTodos.map(({ id, title, completed }) => (
+							<div key={id} className={styles.todoItem}>
+								<input
+									type="checkbox"
+									checked={completed}
+									onChange={() => { }}
+									className={styles.checkbox}
+									disabled
+								/>
+								<div className={styles.todoContent}>
+									<Link to={`/task/${id}`} className={styles.todoLink}>
+										<h3 className={completed ? styles.completed : ''}>
+											{truncateText(title)}
+										</h3>
+									</Link>
+									<p className={styles.todoId}>ID: {id}</p>
+								</div>
+								<div className={completed ? styles.statusCompleted : styles.statusPending}>
+									{completed ? 'Выполнено' : 'В процессе'}
+								</div>
+							</div>
+						))
+					)}
 				</div>
 			)}
-		</div>
+		</>
 	);
 };
